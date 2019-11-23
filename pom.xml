@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.zarybnicky.jade</groupId>
+    <artifactId>org.zarybnicky.jade</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <exec.mainClass>jade.Boot</exec.mainClass>
+        <exec.args>-nomtp in:Initiator;p0:Participant;p1:Participant;p2:Participant;p3:Participant;p4:Participant;p5:Participant;p6:Participant;p7:Participant;p8:Participant;p9:Participant</exec.args>
+    </properties>
+    <repositories>
+        <repository>
+            <id>tilab</id>
+            <url>https://jade.tilab.com/maven/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>com.tilab.jade</groupId>
+            <artifactId>jade</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+    </dependencies>
+</project>
