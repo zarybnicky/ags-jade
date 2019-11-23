@@ -29,14 +29,14 @@ public class Participant extends Agent {
             final ACLMessage reply = msg.createReply();
             double state = Math.random();
             if (state < 0.2) {
-                System.out.println("Refusing to offer");
+                System.out.println(getName() + " Refusing to offer");
                 reply.setPerformative(ACLMessage.REFUSE);
             } else if (state < 0.9) {
-                System.out.println("Sending offer");
+                System.out.println(getName() + " Sending offer");
                 reply.setPerformative(ACLMessage.PROPOSE);
                 reply.setContent(Long.toString(Math.round(Math.random() * 100)));
             } else {
-                System.out.println("Sending offer late");
+                System.out.println(getName() + " Sending offer late");
                 blockingReceive(2000);
                 reply.setPerformative(ACLMessage.PROPOSE);
                 reply.setContent(Long.toString(Math.round(Math.random() * 100)));
@@ -48,15 +48,15 @@ public class Participant extends Agent {
             if (msg.getPerformative() == ACLMessage.ACCEPT_PROPOSAL) {
                 ACLMessage r = msg.createReply();
                 if (Math.random() > 0.2) {
-                    System.out.println("Contractor successful");
+                    System.out.println(getName() + " Contractor successful");
                     r.setPerformative(ACLMessage.INFORM);
                 } else {
-                    System.out.println("Contractor failed");
+                    System.out.println(getName() + " Contractor failed");
                     r.setPerformative(ACLMessage.FAILURE);
                 }
                 send(r);
             } else {
-                System.out.println("Offer rejected");
+                System.out.println(getName() + " Offer rejected");
             }
             s.reset();
         }));

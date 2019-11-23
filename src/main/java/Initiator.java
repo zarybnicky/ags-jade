@@ -37,7 +37,7 @@ public class Initiator extends Agent {
             } catch (FIPAException ex) {
                 ex.printStackTrace();
             }
-            System.out.println("Sending proposal");
+            System.out.println(getName() + " Sending proposal");
             send(proposal);
         }));
         s.addSubBehaviour(new TimedBehavior(this, 2000, new ReceiveManyBehavior(this, (ACLMessage msg) -> {
@@ -64,7 +64,7 @@ public class Initiator extends Agent {
             rejected.add(largestId);  proposals.remove(largestId);
 
             if (proposals.isEmpty()) {
-                System.out.println("No available proposals");
+                System.out.println(getName() + " No available proposals");
                 this.doDelete();
                 return;
             }
@@ -79,7 +79,7 @@ public class Initiator extends Agent {
                 }
             }
             proposals.remove(acceptedId);
-            
+
             // Reject all non-accepted
             rejected.addAll(proposals.keySet());
             for (AID id : rejected) {
@@ -88,17 +88,17 @@ public class Initiator extends Agent {
                 send(m);
             }
             // Accept only one
-            System.out.println("Accepting proposal");
+            System.out.println(getName() + " Accepting proposal");
             ACLMessage m = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
             m.addReceiver(acceptedId);
             send(m);
         }));
         s.addSubBehaviour(new ReceiveManyBehavior(this, (msg) -> {
             if (msg.getPerformative() == ACLMessage.INFORM) {
-                System.out.println("Project successful, quitting");
+                System.out.println(getName() + " Project successful, quitting");
                 doDelete();
             } else if (msg.getPerformative() == ACLMessage.FAILURE) {
-                System.out.println("Project failed, restarting");
+                System.out.println(getName() + " Project failed, restarting");
                 s.reset();
             } else if (msg.getPerformative() == ACLMessage.PROPOSE) {
                 msg.createReply();
